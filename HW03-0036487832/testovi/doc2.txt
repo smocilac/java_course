@@ -1,0 +1,6 @@
+This is sample number 2. Must throw because of 
+bad for loop definition.
+{$ FOR i 1 $}
+	{$= i$}
+{$END$}
+This should not be written.

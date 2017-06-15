@@ -1,0 +1,5 @@
+Lets try numbers. Must NOT throw.
+{$ FOR i 1 10 variable$}
+	This is numbers example \\
+	{$= i var_name -100 -1.05 1.1 @FUNCTION "S"$}
+{$END$}

@@ -1,0 +1,3 @@
+{$ = i a u @function$}
+	Should trow in next line, escaping in tag.
+{$= i var_name \| -100 -1.05 1.1 @FUNCTION "S"$}

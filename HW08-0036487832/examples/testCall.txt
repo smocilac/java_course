@@ -1,0 +1,24 @@
+# Test for Call method
+
+		call @test1		;
+		call @test2		;
+		call @test3		;
+		call @test4		;
+		
+		
+@test1: move r1, 2		;
+		move r2, 3		;
+		add  r0, r1, r2	;
+		ret 			;
+@test2:	move r1, 2		;
+		move r2, 3		;
+		add  r0, r1, r2	;
+		ret				;
+@test3:	move r1, 2		;
+		move r2, 3		;
+		add  r0, r1, r2	;
+		ret 			;
+@test4:	move r1, 2		;
+		move r2, 3		;
+		add  r0, r1, r2	;
+		ret 			;

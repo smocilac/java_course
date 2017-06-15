@@ -1,0 +1,2 @@
+Some example from homework pdf.
+{$= "Joe \"Long\" Smith" variable "Some \\ test X"$}

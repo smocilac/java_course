@@ -1,0 +1,58 @@
+# Ovaj program zahtjeva od korisnika unos broja n ponavljanja te unos poèetnog 3
+# broja k. Ispisuje poèetni broj k, te ga inkrementira i ispisuje n puta
+
+jump @pocetak 					;
+ 
+@brojac:	DEFINT 0			; ovo je konstanta na adresi 1
+@pocetni:	DEFINT 0			; ovo je konstanta na adresi 2
+@nula:		DEFINT 0			; ovo je konstanta na adresi 3
+ 
+@pocetak:	load r1, @pocporuka ;
+			echo r1			;
+			iinput @brojac		;
+
+@unosi:		load r1, @pocetnibroj ;
+			echo r1
+			iinput @pocetni 	;
+			jumpIfTrue @nastavi	;
+			load r1, @kriviunos ;
+			echo r1			;
+			load r1, @novired
+			echo r1 		;
+			jump @unosi			;
+		
+@nastavi:	load r1, @ispisjedan ;
+			echo r1	;
+			load r1, @brojac ;
+			echo r1		;
+			load r1, @ispisdva ;
+			echo r1 		;
+		
+			load r0, @brojac	;
+			load r1, @pocetni	;
+			load r2, @nula		;
+
+@ponavljaj:	echo r1				;
+			load r7, @novired	;
+			echo r7		;
+			increment r1		;
+			decrement r0		;
+			testEquals r0, r2	;
+			jumpIfTrue @kraj	;
+			jump @ponavljaj		;
+ 
+@kraj:		halt				;
+		
+ 
+ 
+#neki podaci koje koristimo u programu
+ 
+RESERVE:30				; rezerviramo 30 lokacija u memoriji
+@stackTop:	RESERVE
+ 
+@ispisjedan:    DEFSTR "Sljedecih "										; pocetak nabrajanja
+@ispisdva:      DEFSTR " brojeva je: \n"								; najavi brojeve
+@novired:       DEFSTR "\n"												;
+@pocporuka:		DEFSTR "Koliko brojeva zelite: "						; broj iduæih 0 do 6
+@pocetnibroj:   DEFSTR "Unesite pocetni broj: " 						; poèetni broj
+@kriviunos:    	DEFSTR "Unos nije moguce protumaciti kao cijeli broj."	; krivi unos

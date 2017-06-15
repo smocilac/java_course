@@ -1,0 +1,54 @@
+# program racuna n-ti fibonaccijev broj rekurzivno (1 1 2 3 5 8 13 ...)
+# n = (n - 1) + (n - 2)
+
+			jump @pocetak 			; skoci na pocetak programa
+
+@brojac:	DEFINT 0				; ovo je konstanta na adresi 1
+@nula:		DEFINT 0				; ovo je konstanta na adresi 2
+
+@pocetak: 	load r6, @nula			; u r6 stavi nulu
+			load r1, @poruka		; ucitaj poruku
+			echo r1					; ispisi poruku
+			iinput @brojac			; ucitaj n ( 0 do 6)
+			load r5, @brojac		; spremi koliko ih treba u r5
+			move r1, 1				; upisi 1 u registar 1
+			push r5					; predaj index
+			push r6					; stavi na stog 0 , prvi fibonacci
+			push r1					; stavi na stog 1 , drugi fibonacci
+			call @fib				; pozovi fib
+			increment r15			; smanji stog za 1
+			increment r15			; jos jednom
+			increment r15			; treci put
+			echo r1					; ispisi rezultat
+			halt					; kraj
+
+			
+			
+		
+# Metoda fib(n-1, n-2, counter)
+# ------------------------------------------
+# vraća rezultat u registru r1
+
+@fib:		move r0, 0				; u r0 stavi 0
+			move r5, [r15+4] 		; u r1 ucitaj brojac
+			testEquals r0, r5		; jesam gotov?
+			jumpIfTrue @fibOver     ; ako je brojac 0, zavrsi
+			move r0, [r15+3] 		; inace ucitaj jedan fibOver
+			move r1, [r15+2]		; jos jedan
+			add r0, r1, r0			; uvecaj za prethodni
+			decrement r5			; smanji brojac
+			push r5					; gurni brojac
+			push r1					; gurni n-2
+			push r0					; gurni n-1
+			call @fib				; pozovi rekurzivno funkciju
+			increment r15			; obnovi stog
+			increment r15			; obnovi stog
+			increment r15			; obnovi stog
+			ret						; povratak 
+@fibOver:	move r1, [r15+2]		; spremi konacnu vrijednost u r1
+			ret						; povratak
+			
+			
+@poruka:	DEFSTR "Unesite koji fibonacci zelite: "
+			RESERVE:40				; rezerviramo 40 lokacija u memoriji
+@stackTop:	RESERVE:35				; rezerviramo stog
